@@ -1,0 +1,14 @@
+body {
+    background: #f2f2f2;
+}
+
+canvas {
+    background: url(../img/summoners_rift.jpg);
+    background-size: cover;
+    margin: 50px auto;
+    display: block;
+    cursor: none;
+}
+canvas.cursorEnabled {
+    cursor: url(../img/teemo-dart.png) 1 17, none;
+}
