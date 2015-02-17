@@ -39,24 +39,27 @@
         introText.shadow = textShadow;
         stage.addChild(introText);
 
-        var teemo = makeTeemo(380, 350);
-        stage.addChild( teemo );
-
         stage.update();
 
-        teemo.addEventListener('click', function(event) {
-            var isRightClick = event.nativeEvent.button == 2;
+        var teemo = makeTeemo(380, 350);
+        teemo.image.onload = function(){
+            teemo.addEventListener('click', function(event) {
+                var isRightClick = event.nativeEvent.button == 2;
 
-            if( isRightClick ) {
-                stage.removeChild(introText);
-                stage.removeChild(textShadow);
-                stage.removeChild(teemo);
-                start();
-            }
+                if( isRightClick ) {
+                    stage.removeChild(introText);
+                    stage.removeChild(textShadow);
+                    stage.removeChild(teemo);
+                    start();
+                }
 
-            event.stopImmediatePropagation();
-            return false;
-        });
+                event.stopImmediatePropagation();
+                return false;
+            });
+
+            stage.addChild( teemo );
+            stage.update();
+        };
     }
 
     function start() {
