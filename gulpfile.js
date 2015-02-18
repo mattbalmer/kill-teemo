@@ -9,8 +9,8 @@ gulp.task('browserify', function() {
         .require('./vendor/createjs-2013.12.12.min.js', {expose: 'createjs'})
         .bundle()
         .pipe(source('app.min.js'))
-        //.pipe(buffer())
-        //.pipe(uglify())
+        .pipe(buffer())
+        .pipe(uglify())
         .pipe(gulp.dest('./dist/'));
 });
 

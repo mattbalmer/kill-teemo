@@ -1,8 +1,8 @@
 module.exports = {
     read: function() {
-        var raw = localStorage.getItem('killteemo') || {};
+        var raw = localStorage.getItem('killteemo');
 
-        return JSON.parse(raw);
+        return JSON.parse(raw) || {};
     },
     update: function(key, value) {
         var raw = localStorage.getItem('killteemo');
