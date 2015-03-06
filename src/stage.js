@@ -216,6 +216,9 @@ function onStageClick(event) {
 function gameOver(message) {
     if(state == 'OVER') return;
 
+    if(timer)
+        timer.stop();
+
     state = 'OVER';
     message = message || 'You missed.';
     var gameOverText = new createjs.Text(message + ' \nTeemo will now rule the world. gg', '38px Arial', '#dda582');
