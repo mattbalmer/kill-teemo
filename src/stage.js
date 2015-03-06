@@ -1,5 +1,6 @@
 var createjs = require('createjs'),
-    storage = require('./storage');
+    storage = require('./storage'),
+    remaining = require('./timer');
 
 var stage
     , teemos = []
@@ -12,7 +13,9 @@ var stage
     , stageHeight = 600
     , teemoWidth = 250
     , teemoHeight = 190
-    , teemoTickTime = 500;
+    , teemoTickTime = 500
+    , timeleftBar = null
+    , timer = null;
 
 function initialize() {
     stage = new createjs.Stage('KillTeemoCanvas');
@@ -165,6 +168,21 @@ function onTeemoClick(event) {
         if(teemos.length < 3) {
             setTimeout(addTeemo, teemoTickTime);
         }
+
+        if(score == 10) {
+            timeleftBar = new remaining.Bar(50, stageHeight - 60, stageWidth - 50, stageHeight - 30, '#dda582');
+            timeleftBar.addTo(stage);
+
+            timer = new remaining.Timer(3000, timeleftBar, function() {
+                console.log('over?');
+                this.pause();
+                gameOver('You were too slow.');
+            });
+        }
+        if(score > 10) {
+            timer.reset();
+            timer.start();
+        }
     }
 
     event.stopImmediatePropagation();
@@ -183,11 +201,12 @@ function onStageClick(event) {
     if(isRightClick) gameOver();
 }
 
-function gameOver() {
+function gameOver(message) {
     if(state == 'OVER') return;
 
     state = 'OVER';
-    var gameOverText = new createjs.Text('You missed. \nTeemo will now rule the world. gg', '38px Arial', '#dda582');
+    message = message || 'You missed.';
+    var gameOverText = new createjs.Text(message + ' \nTeemo will now rule the world. gg', '38px Arial', '#dda582');
     gameOverText.x = stageWidth / 2;
     gameOverText.y = stageHeight / 2;
     gameOverText.textAlign = 'center';
@@ -207,12 +226,17 @@ function gameOver() {
     restartText.shadow = restartTextShadow;
     stage.addChild(restartText);
 
+    if(timeleftBar)
+        timeleftBar.removeFrom(stage);
+
     for(var i = 0; i < teemos.length; i++) {
         stage.removeChild( teemos[i] );
         updateStage();
     }
     teemos = [];
-    storage.update('bestScore', score);
+
+    if(score > storage.read().bestScore)
+        storage.update('bestScore', score);
 
     stage.update();
 
