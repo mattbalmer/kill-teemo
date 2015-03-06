@@ -217,7 +217,7 @@ function gameOver(message) {
     if(state == 'OVER') return;
 
     if(timer)
-        timer.stop();
+        timer.pause();
 
     state = 'OVER';
     message = message || 'You missed.';
