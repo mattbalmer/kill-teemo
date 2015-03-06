@@ -43,9 +43,19 @@ function intro() {
     introText.shadow = textShadow;
     stage.addChild(introText);
 
+    var timerText = new createjs.Text('3 second timer starts at 10 kills', '24px Arial', '#dda582');
+    timerText.x = stageWidth / 2;
+    timerText.y = stageHeight - 100;
+    timerText.textAlign = 'center';
+    timerText.textBaseline = 'middle';
+
+    var timerTextShadow = new createjs.Shadow("#000000", 1, 1, 3);
+    timerText.shadow = timerTextShadow;
+    stage.addChild(timerText);
+
     stage.update();
 
-    var teemo = makeTeemo(380, 350);
+    var teemo = makeTeemo(380, 370);
     teemo.image.onload = function(){
         teemo.addEventListener('click', function(event) {
             var isRightClick = event.nativeEvent.button == 2;
@@ -53,6 +63,8 @@ function intro() {
             if( isRightClick ) {
                 stage.removeChild(introText);
                 stage.removeChild(textShadow);
+                stage.removeChild(timerText);
+                stage.removeChild(timerTextShadow);
                 stage.removeChild(teemo);
                 start();
             }
