@@ -174,7 +174,7 @@ function onTeemoClick(event) {
     var isRightClick = event.nativeEvent.button == 2,
         isLeftClick = event.nativeEvent.button == 0;
 
-    if( isLeftClick && isRightClick ) {
+    if( isLeftClick || isRightClick ) {
         score++;
         removeTeemo(event.currentTarget);
 
