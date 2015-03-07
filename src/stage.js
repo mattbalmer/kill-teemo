@@ -210,9 +210,10 @@ function updateStage() {
 }
 
 function onStageClick(event) {
-    var isRightClick = event.nativeEvent.button == 2;
+    var isRightClick = event.nativeEvent.button == 2,
+        isLeftClick = event.nativeEvent.button == 0;
 
-    if(isRightClick) gameOver();
+    if(isLeftClick || isRightClick) gameOver();
 }
 
 function gameOver(message) {
