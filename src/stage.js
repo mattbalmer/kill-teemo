@@ -33,7 +33,7 @@ function initialize() {
 function intro() {
     state = 'INTRO';
 
-    var introText = new createjs.Text('Right-Click Teemo to kill him', '38px Arial', '#dda582');
+    var introText = new createjs.Text('Right-Click or Left-Click Teemo to kill him', '38px Arial', '#dda582');
     introText.x = stageWidth / 2;
     introText.y = stageHeight / 2;
     introText.textAlign = 'center';
