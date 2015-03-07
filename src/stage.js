@@ -58,9 +58,10 @@ function intro() {
     var teemo = makeTeemo(380, 370);
     teemo.image.onload = function(){
         teemo.addEventListener('click', function(event) {
-            var isRightClick = event.nativeEvent.button == 2;
+            var isRightClick = event.nativeEvent.button == 2,
+                isLeftClick = event.nativeEvent.button == 0;
 
-            if( isRightClick ) {
+            if( isLeftClick || isRightClick ) {
                 stage.removeChild(introText);
                 stage.removeChild(textShadow);
                 stage.removeChild(timerText);
